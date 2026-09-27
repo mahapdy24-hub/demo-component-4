@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FoodieGo - Food Delivery</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #fff8f0;
+    color: #333;
+}
+
+section {
+    padding: 70px 8%;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    color: #d84315;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #d84315;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ffe0b2;
+}
+
+/* =========================
+   HOME
+========================= */
+
+#home {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+}
+
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.date-box {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   MENU
+========================= */
+
+#menu {
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 38px;
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.food-card {
+    background: #fff8f0;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.food-card:hover {
+    transform: translateY(-8px);
+}
+
+.food-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.food-card h3 {
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    background: #d84315;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+}
+
+.add-btn:hover {
+    background: #bf360c;
+}
+
+/* =========================
+   REGISTER
+========================= */
+
+#register {
+    background: #fff3e0;
+}
+
+.form-container {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.form-group textarea {
+    height: 90px;
+    resize: none;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.radio-group label,
+.checkbox-group label {
+    font-weight: normal;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #d84315;
+    color: white;
+    border-radius: 8px;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.count-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff9800;
+    color: white;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+#elementCount {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+    color: #d84315;
+}
+
+#customerInfo {
+    margin-top: 25px;
+    padding: 20px;
+    background: #e8f5e9;
+    border-left: 5px solid #43a047;
+    border-radius: 8px;
+    display: none;
+}
+
+/* =========================
+   ORDER
+========================= */
+
+#order {
+    background: white;
+}
+
+.cart-box {
+    max-width: 900px;
+    margin: auto;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #fff3e0;
+    border-radius: 8px;
+}
+
+.quantity-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    background: #d84315;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+
+.place-order-btn {
+    width: 100%;
+    padding: 15px;
+    background: #43a047;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* =========================
+   BILL
+========================= */
+
+#billSection {
+    display: none;
+    margin-top: 40px;
+}
+
+.bill {
+    max-width: 800px;
+    margin: auto;
+    border: 2px solid #d84315;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.bill-header {
+    background: #d84315;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.bill-header h2 {
+    color: white;
+}
+
+.bill-info {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bill-table th,
+.bill-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.bill-table th {
+    background: #fff3e0;
+}
+
+.bill-total {
+    padding: 20px;
+    text-align: right;
+}
+
+.bill-total p {
+    margin: 8px 0;
+}
+
+.grand-total {
+    font-size: 25px;
+    font-weight: bold;
+    color: #d84315;
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-box {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fff8f0;
+    border-radius: 12px;
+}
+
+.payment-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.payment-option {
+    flex: 1;
+    min-width: 150px;
+    padding: 15px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.payment-option:hover {
+    border-color: #d84315;
+}
+
+.payment-option input {
+    margin-right: 8px;
+}
+
+.card-fields {
+    display: none;
+    margin-top: 15px;
+}
+
+.card-fields input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 15px;
+    background: #d84315;
+    color: white;
+    border-radius: 8px;
+    font-size: 17px;
+}
+
+#paymentMessage {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* =========================
+   DELIVERY SECTION
+========================= */
+
+#deliverySection {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(#e3f2fd, #ffffff);
+    padding-top: 60px;
+}
+
+.delivery-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.delivery-status {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+/* =========================
+   DELIVERY ROAD
+========================= */
+
+.delivery-road {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    margin-top: 30px;
+    overflow: hidden;
+    border-bottom: 12px solid #333;
+    background: linear-gradient(
+        to bottom,
+        #b3e5fc 0%,
+        #e1f5fe 70%,
+        #eeeeee 70%,
+        #eeeeee 100%
+    );
+}
+
+/* Road markings */
+
+.road-line {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    height: 6px;
+    background: repeating-linear-gradient(
+        to right,
+        #fff 0px,
+        #fff 70px,
+        transparent 70px,
+        transparent 130px
+    );
+}
+
+/* =========================
+   DELIVERY PERSON + SCOOTER
+========================= */
+
+.delivery-rider {
+    position: absolute;
+    left: 100%;
+    bottom: 35px;
+
+    width: 170px;
+    height: 150px;
+
+    animation: deliveryJourney 9s linear infinite;
+}
+
+/* Rider body */
+
+.rider-body {
+    position: absolute;
+    left: 70px;
+    top: 25px;
+    width: 38px;
+    height: 65px;
+    background: #1565c0;
+    border-radius: 15px 15px 8px 8px;
+}
+
+/* Rider head */
+
+.rider-head {
+    position: absolute;
+    left: 70px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background: #f5c6a5;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+/* Helmet */
+
+.rider-helmet {
+    position: absolute;
+    left: 65px;
+    top: -7px;
+    width: 50px;
+    height: 28px;
+    background: #212121;
+    border-radius: 30px 30px 5px 5px;
+    z-index: 4;
+}
+
+.rider-helmet::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 8px;
+    background: #64b5f6;
+    right: -5px;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+/* Rider arm */
+
+.rider-arm {
+    position: absolute;
+    left: 60px;
+    top: 42px;
+    width: 55px;
+    height: 12px;
+    background: #f5c6a5;
+    border-radius: 10px;
+    transform: rotate(20deg);
+    z-index: 2;
+}
+
+/* Delivery bag */
+
+.delivery-bag {
+    position: absolute;
+    left: 100px;
+    top: 40px;
+    width: 42px;
+    height: 45px;
+    background: #ff9800;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.delivery-bag::before {
+    content: "FOOD";
+    position: absolute;
+    font-size: 8px;
+    font-weight: bold;
+    color: white;
+    top: 17px;
+    left: 7px;
+}
+
+/* =========================
+   SCOOTER
+========================= */
+
+.scooter {
+    position: absolute;
+    left: 25px;
+    top: 75px;
+    width: 130px;
+    height: 60px;
+}
+
+/* Scooter body */
+
+.scooter-body {
+    position: absolute;
+    left: 25px;
+    top: 18px;
+    width: 85px;
+    height: 30px;
+    background: #d84315;
+    border-radius: 30px 35px 10px 10px;
+}
+
+/* Front handle */
+
+.scooter-handle {
+    position: absolute;
+    left: 98px;
+    top: 3px;
+    width: 35px;
+    height: 8px;
+    background: #333;
+    border-radius: 8px;
+    transform: rotate(-20deg);
+}
+
+/* Seat */
+
+.scooter-seat {
+    position: absolute;
+    left: 42px;
+    top: 8px;
+    width: 45px;
+    height: 12px;
+    background: #222;
+    border-radius: 10px;
+}
+
+/* Front light */
+
+.scooter-light {
+    position: absolute;
+    left: 105px;
+    top: 28px;
+    width: 15px;
+    height: 15px;
+    background: #fff59d;
+    border-radius: 50%;
+}
+
+/* Wheels */
+
+.wheel {
+    position: absolute;
+    bottom: 0;
+    width: 35px;
+    height: 35px;
+    background: #222;
+    border-radius: 50%;
+    border: 7px solid #555;
+}
+
+.wheel-one {
+    left: 20px;
+}
+
+.wheel-two {
+    right: 8px;
+}
+
+/* =========================
+   CONTINUOUS ANIMATION
+   RIGHT -> LEFT -> RIGHT
+========================= */
+
+@keyframes deliveryJourney {
+
+    /* Start from right */
+    0% {
+        left: 100%;
+        transform: scaleX(1);
+    }
+
+    /* Move to left */
+    48% {
+        left: -190px;
+        transform: scaleX(1);
+    }
+
+    /* Reverse direction */
+    50% {
+        left: -190px;
+        transform: scaleX(-1);
+    }
+
+    /* Move back to right */
+    98% {
+        left: 100%;
+        transform: scaleX(-1);
+    }
+
+    /* Start next loop */
+    100% {
+        left: 100%;
+        transform: scaleX(1);
+    }
+}
+
+.delivery-note {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 18px;
+    color: #555;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:700px) {
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .bill-info {
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <div class="logo">
+        🍔 FoodieGo
+    </div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#order">Order</a></li>
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home">
+
+    <div class="hero">
+
+        <h1>🍕 FoodieGo</h1>
+
+        <p>
+            Delicious Food Delivered To Your Doorstep
+        </p>
+
+        <div class="date-box">
+
+            <p>
+                📅 Date:
+                <span id="currentDate"></span>
+            </p>
+
+            <p>
+                🕐 Time:
+                <span id="currentTime"></span>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<section id="menu">
+
+    <h2 class="section-title">
+        🍽️ Our Menu
+    </h2>
+
+    <div class="menu-container">
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍕
+            </div>
+
+            <h3>Cheese Pizza</h3>
+
+            <p class="price">
+                ₹249
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('Cheese Pizza',249)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍔
+            </div>
+
+            <h3>Classic Burger</h3>
+
+            <p class="price">
+                ₹179
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('Classic Burger',179)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍛
+            </div>
+
+            <h3>Chicken Biryani</h3>
+
+            <p class="price">
+                ₹299
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('Chicken Biryani',299)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍝
+            </div>
+
+            <h3>Italian Pasta</h3>
+
+            <p class="price">
+                ₹229
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('Italian Pasta',229)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍰
+            </div>
+
+            <h3>Chocolate Cake</h3>
+
+            <p class="price">
+                ₹199
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('Chocolate Cake',199)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-icon">
+                🍟
+            </div>
+
+            <h3>French Fries</h3>
+
+            <p class="price">
+                ₹129
+            </p>
+
+            <button
+                class="add-btn"
+                onclick="addToCart('French Fries',129)">
+                Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     REGISTER
+========================= -->
+
+<section id="register">
+
+    <h2 class="section-title">
+        📝 Customer Registration
+    </h2>
+
+    <div class="form-container">
+
+        <form id="registrationForm"
+              onsubmit="registerUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Customer Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    City
+                </label>
+
+                <select id="city" required>
+
+                    <option value="">
+                        Select City
+                    </option>
+
+                    <option value="Chennai">
+                        Chennai
+                    </option>
+
+                    <option value="Coimbatore">
+                        Coimbatore
+                    </option>
+
+                    <option value="Madurai">
+                        Madurai
+                    </option>
+
+                    <option value="Trichy">
+                        Trichy
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <div class="radio-group">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Male">
+                        Male
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Female">
+                        Female
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="Other">
+                        Other
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Favorite Food
+                </label>
+
+                <div class="checkbox-group">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="food"
+                            value="Pizza">
+                        Pizza
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="food"
+                            value="Burger">
+                        Burger
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="food"
+                            value="Biryani">
+                        Biryani
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="food"
+                            value="Pasta">
+                        Pasta
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Delivery Address
+                </label>
+
+                <textarea
+                    id="address"
+                    required></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn">
+
+                Register Customer
+
+            </button>
+
+
+            <button
+                type="button"
+                class="count-btn"
+                onclick="countFormElements()">
+
+                Count Form Elements
+
+            </button>
+
+
+            <div id="elementCount"></div>
+
+        </form>
+
+
+        <div id="customerInfo"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ORDER
+========================= -->
+
+<section id="order">
+
+    <h2 class="section-title">
+        🛒 Your Order
+    </h2>
+
+
+    <div class="cart-box">
+
+        <div id="cartItems">
+
+            <div class="empty-cart">
+                Your cart is empty.
+            </div>
+
+        </div>
+
+
+        <button
+            class="place-order-btn"
+            onclick="placeOrder()">
+
+            Place Order
+
+        </button>
+
+
+        <!-- BILL -->
+
+        <div id="billSection">
+
+            <div class="bill">
+
+                <div class="bill-header">
+
+                    <h2>
+                        🍔 FoodieGo Invoice
+                    </h2>
+
+                    <p>
+                        Food Delivery Bill
+                    </p>
+
+                </div>
+
+
+                <div class="bill-info">
+
+                    <div>
+
+                        <strong>
+                            Customer:
+                        </strong>
+
+                        <span id="billCustomer"></span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Date:
+                        </strong>
+
+                        <span id="billDate"></span>
+
+                    </div>
+
+                </div>
+
+
+                <table class="bill-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Item
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Price
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="billItems">
+
+                    </tbody>
+
+                </table>
+
+
+                <div class="bill-total">
+
+                    <p>
+                        Subtotal:
+                        ₹<span id="subtotal"></span>
+                    </p>
+
+                    <p>
+                        GST (5%):
+                        ₹<span id="gst"></span>
+                    </p>
+
+                    <p>
+                        Delivery Charge:
+                        ₹<span id="deliveryCharge"></span>
+                    </p>
+
+                    <p class="grand-total">
+                        Grand Total:
+                        ₹<span id="grandTotal"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PAYMENT -->
+
+            <div class="payment-box">
+
+                <h3>
+                    💳 Select Payment Method
+                </h3>
+
+
+                <div class="payment-options">
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="UPI"
+                            onchange="showPaymentFields()">
+
+                        📱 UPI
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="Card"
+                            onchange="showPaymentFields()">
+
+                        💳 Credit/Debit Card
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="COD"
+                            onchange="showPaymentFields()">
+
+                        💵 Cash on Delivery
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    class="card-fields"
+                    id="cardFields">
+
+                    <input
+                        type="text"
+                        placeholder="Card Number">
+
+                    <input
+                        type="text"
+                        placeholder="Card Holder Name">
+
+                    <input
+                        type="text"
+                        placeholder="Expiry Date">
+
+                    <input
+                        type="password"
+                        placeholder="CVV">
+
+                </div>
+
+
+                <button
+                    class="pay-btn"
+                    onclick="makePayment()">
+
+                    Confirm Payment
+
+                </button>
+
+
+                <div id="paymentMessage"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DELIVERY
+========================= -->
+
+<section id="deliverySection">
+
+    <h2 class="delivery-title">
+        🛵 Your Food is On The Way!
+    </h2>
+
+    <div class="delivery-status">
+
+        🟢 Delivery Person is coming...
+
+    </div>
+
+
+    <div class="delivery-road">
+
+        <div class="road-line"></div>
+
+
+        <!-- DELIVERY PERSON + VEHICLE -->
+
+        <div class="delivery-rider">
+
+            <!-- Delivery Person -->
+
+            <div class="rider-head"></div>
+
+            <div class="rider-helmet"></div>
+
+            <div class="rider-body"></div>
+
+            <div class="rider-arm"></div>
+
+            <div class="delivery-bag"></div>
+
+
+            <!-- Scooter -->
+
+            <div class="scooter">
+
+                <div class="scooter-seat"></div>
+
+                <div class="scooter-body"></div>
+
+                <div class="scooter-handle"></div>
+
+                <div class="scooter-light"></div>
+
+                <div class="wheel wheel-one"></div>
+
+                <div class="wheel wheel-two"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p class="delivery-note">
+
+        🧑‍💼 Our delivery partner is riding your food to you!
+
+    </p>
+
+
+    <p
+        id="deliveryMessage"
+        class="delivery-note">
+
+    </p>
+
+</section>
+
+
+<script>
+
+/* =========================
+   CURRENT DATE AND TIME
+========================= */
+
+function updateDateTime() {
+
+    const now = new Date();
+
+    document.getElementById("currentDate").textContent =
+        now.toLocaleDateString("en-IN");
+
+    document.getElementById("currentTime").textContent =
+        now.toLocaleTimeString("en-IN");
+
+}
+
+setInterval(updateDateTime, 1000);
+
+updateDateTime();
+
+
+/* =========================
+   CART
+========================= */
+
+let cart = [];
+
+
+function addToCart(name, price) {
+
+    const existingItem =
+        cart.find(item => item.name === name);
+
+
+    if (existingItem) {
+
+        existingItem.quantity++;
+
+    } else {
+
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+
+    }
+
+
+    displayCart();
+
+    alert(name + " added to cart!");
+
+}
+
+
+function increaseQuantity(index) {
+
+    cart[index].quantity++;
+
+    displayCart();
+
+}
+
+
+function decreaseQuantity(index) {
+
+    if (cart[index].quantity > 1) {
+
+        cart[index].quantity--;
+
+    } else {
+
+        cart.splice(index, 1);
+
+    }
+
+    displayCart();
+
+}
+
+
+function displayCart() {
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML =
+            '<div class="empty-cart">Your cart is empty.</div>';
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    cart.forEach((item, index) => {
+
+        html += `
+
+            <div class="cart-item">
+
+                <div>
+
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <br>
+
+                    ₹${item.price}
+
+                </div>
+
+
+                <div class="quantity-box">
+
+                    <button
+                        class="qty-btn"
+                        onclick="decreaseQuantity(${index})">
+                        -
+                    </button>
+
+                    <strong>
+                        ${item.quantity}
+                    </strong>
+
+                    <button
+                        class="qty-btn"
+                        onclick="increaseQuantity(${index})">
+                        +
+                    </button>
+
+                </div>
+
+
+                <strong>
+
+                    ₹${item.price * item.quantity}
+
+                </strong>
+
+            </div>
+
+        `;
+
+    });
+
+
+    cartItems.innerHTML = html;
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("customerName").value;
+
+    const email =
+        document.getElementById("email").value;
+
+    const phone =
+        document.getElementById("phone").value;
+
+    const city =
+        document.getElementById("city").value;
+
+    const address =
+        document.getElementById("address").value;
+
+
+    const genderElement =
+        document.querySelector(
+            'input[name="gender"]:checked'
+        );
+
+
+    if (!genderElement) {
+
+        alert("Please select gender.");
+
+        return;
+
+    }
+
+
+    const gender =
+        genderElement.value;
+
+
+    const foodElements =
+        document.querySelectorAll(
+            'input[name="food"]:checked'
+        );
+
+
+    let favoriteFoods = [];
+
+
+    foodElements.forEach(food => {
+
+        favoriteFoods.push(food.value);
+
+    });
+
+
+    const customer = {
+
+        name: name,
+
+        email: email,
+
+        phone: phone,
+
+        city: city,
+
+        gender: gender,
+
+        favoriteFoods: favoriteFoods,
+
+        address: address
+
+    };
+
+
+    localStorage.setItem(
+        "foodieGoCustomer",
+        JSON.stringify(customer)
+    );
+
+
+    displayCustomerInfo();
+
+
+    alert(
+        "Registration Successful!"
+    );
+
+}
+
+
+function displayCustomerInfo() {
+
+    const savedCustomer =
+        localStorage.getItem("foodieGoCustomer");
+
+
+    if (!savedCustomer) {
+
+        return;
+
+    }
+
+
+    const customer =
+        JSON.parse(savedCustomer);
+
+
+    const customerInfo =
+        document.getElementById("customerInfo");
+
+
+    customerInfo.style.display = "block";
+
+
+    customerInfo.innerHTML = `
+
+        <h3>✅ Customer Registered</h3>
+
+        <p>
+            <strong>Name:</strong>
+            ${customer.name}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            ${customer.email}
+        </p>
+
+        <p>
+            <strong>Phone:</strong>
+            ${customer.phone}
+        </p>
+
+        <p>
+            <strong>City:</strong>
+            ${customer.city}
+        </p>
+
+        <p>
+            <strong>Gender:</strong>
+            ${customer.gender}
+        </p>
+
+        <p>
+            <strong>Favorite Food:</strong>
+            ${customer.favoriteFoods.join(", ") || "Not selected"}
+        </p>
+
+        <p>
+            <strong>Address:</strong>
+            ${customer.address}
+        </p>
+
+    `;
+
+}
+
+
+displayCustomerInfo();
+
+
+/* =========================
+   FORM ELEMENT COUNT
+========================= */
+
+function countFormElements() {
+
+    const form =
+        document.getElementById("registrationForm");
+
+
+    const count =
+        form.elements.length;
+
+
+    document.getElementById(
+        "elementCount"
+    ).textContent =
+        count + " form elements";
+
+
+    alert(
+        "Total Form Elements = " + count
+    );
+
+}
+
+
+/* =========================
+   PLACE ORDER
+========================= */
+
+function placeOrder() {
+
+    if (cart.length === 0) {
+
+        alert(
+            "Please add food items to your cart first."
+        );
+
+        return;
+
+    }
+
+
+    const customer =
+        localStorage.getItem(
+            "foodieGoCustomer"
+        );
+
+
+    if (!customer) {
+
+        alert(
+            "Please register before placing your order."
+        );
+
+
+        document
+            .getElementById("register")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+
+        return;
+
+    }
+
+
+    generateBill();
+
+
+    document
+        .getElementById("billSection")
+        .style.display = "block";
+
+
+    document
+        .getElementById("billSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================
+   GENERATE BILL
+========================= */
+
+function generateBill() {
+
+    const customer =
+        JSON.parse(
+            localStorage.getItem(
+                "foodieGoCustomer"
+            )
+        );
+
+
+    document.getElementById(
+        "billCustomer"
+    ).textContent =
+        customer.name;
+
+
+    document.getElementById(
+        "billDate"
+    ).textContent =
+        new Date().toLocaleDateString("en-IN");
+
+
+    const billItems =
+        document.getElementById("billItems");
+
+
+    let subtotal = 0;
+
+
+    let html = "";
+
+
+    cart.forEach(item => {
+
+        const amount =
+            item.price * item.quantity;
+
+
+        subtotal += amount;
+
+
+        html += `
+
+            <tr>
+
+                <td>
+                    ${item.name}
+                </td>
+
+                <td>
+                    ${item.quantity}
+                </td>
+
+                <td>
+                    ₹${item.price.toFixed(2)}
+                </td>
+
+                <td>
+                    ₹${amount.toFixed(2)}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    billItems.innerHTML = html;
+
+
+    /* Mathematical Calculation */
+
+    const gst =
+        subtotal * 0.05;
+
+
+    const deliveryCharge =
+        40;
+
+
+    const grandTotal =
+        subtotal +
+        gst +
+        deliveryCharge;
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        subtotal.toFixed(2);
+
+
+    document.getElementById(
+        "gst"
+    ).textContent =
+        gst.toFixed(2);
+
+
+    document.getElementById(
+        "deliveryCharge"
+    ).textContent =
+        deliveryCharge.toFixed(2);
+
+
+    document.getElementById(
+        "grandTotal"
+    ).textContent =
+        grandTotal.toFixed(2);
+
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function showPaymentFields() {
+
+    const selected =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+
+    const cardFields =
+        document.getElementById(
+            "cardFields"
+        );
+
+
+    if (
+        selected &&
+        selected.value === "Card"
+    ) {
+
+        cardFields.style.display =
+            "block";
+
+    } else {
+
+        cardFields.style.display =
+            "none";
+
+    }
+
+}
+
+
+function makePayment() {
+
+    const selected =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+
+    if (!selected) {
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+
+    const method =
+        selected.value;
+
+
+    document.getElementById(
+        "paymentMessage"
+    ).innerHTML =
+
+        "✅ Payment confirmed using " +
+        method +
+        "!";
+
+
+    alert(
+        "Payment Successful!"
+    );
+
+
+    startDelivery();
+
+}
+
+
+/* =========================
+   DELIVERY
+========================= */
+
+function startDelivery() {
+
+    const deliverySection =
+        document.getElementById(
+            "deliverySection"
+        );
+
+
+    deliverySection.style.display =
+        "block";
+
+
+    deliverySection.scrollIntoView({
+        behavior: "smooth"
+    });
+
+
+    document.getElementById(
+        "deliveryMessage"
+    ).textContent =
+        "🚚 Delivery is in progress...";
+
+
+    /*
+       IMPORTANT:
+
+       Animation is CSS based.
+
+       animation:
+       deliveryJourney 9s linear infinite;
+
+       So the delivery person + scooter
+       will continuously move:
+
+       RIGHT → LEFT → RIGHT → LEFT → RIGHT...
+
+       It will NOT stop.
+    */
+
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "deliveryMessage"
+        ).textContent =
+            "🎉 Your delivery is on the way! The delivery partner is continuously travelling.";
+
+    }, 5000);
+
+}
+
+</script>
+
+</body>
+</html>
